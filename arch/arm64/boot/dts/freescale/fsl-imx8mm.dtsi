@@ -923,7 +923,6 @@
 		dma-names = "rx", "tx";
 		status = "disabled";
 	};
-
 	ecspi2: ecspi@30830000 {
 		#address-cells = <1>;
 		#size-cells = <0>;

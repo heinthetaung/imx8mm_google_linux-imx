@@ -37,6 +37,35 @@
 			linux,default-trigger = "heartbeat";
 		};
 	};
+
+/*	ecspi1: ecspi@30820000 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "fsl,imx8mm-ecspi", "fsl,imx51-ecspi";
+		reg = <0x0 0x30820000 0x0 0x10000>;
+		interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
+		clocks = <&clk IMX8MM_CLK_ECSPI1_ROOT>,
+			<&clk IMX8MM_CLK_ECSPI1_ROOT>;
+		clock-names = "ipg", "per";
+		dmas = <&sdma1 0 7 1>, <&sdma1 1 7 2>;
+		dma-names = "rx", "tx";
+		status = "disabled";
+	};
+
+	ecspi2: ecspi@30830000 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "fsl,imx8mm-ecspi", "fsl,imx51-ecspi";
+		reg = <0x0 0x30830000 0x0 0x10000>;
+		interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+		clocks = <&clk IMX8MM_CLK_ECSPI2_ROOT>,
+			<&clk IMX8MM_CLK_ECSPI2_ROOT>;
+		clock-names = "ipg", "per";
+		dmas = <&sdma1 2 7 1>, <&sdma1 3 7 2>;
+		dma-names = "rx", "tx";
+		status = "disabled";
+	}; */
+
 	//Fake regulator provides WL_REG_ON signal for wireless interface
 	wlreg_on: wlregon-regulator {
 		compatible = "regulator-fixed";
@@ -205,6 +234,23 @@
 			>;
 		};
 
+		pinctrl_ecspi1: ecspi1grp {
+			fsl,pins = <
+                MX8MM_IOMUXC_ECSPI1_MISO_ECSPI1_MISO       0x40000116
+                MX8MM_IOMUXC_ECSPI1_MOSI_ECSPI1_MOSI       0x40000116
+                MX8MM_IOMUXC_ECSPI1_SCLK_ECSPI1_SCLK       0x40000116
+                MX8MM_IOMUXC_ECSPI1_SS0_ECSPI1_SS0         0x40000116
+			>;
+		};
+
+		pinctrl_ecspi2: ecspi2grp {
+			fsl,pins = <
+				MX8MM_IOMUXC_ECSPI2_MISO_ECSPI2_MISO 0x00000116
+				MX8MM_IOMUXC_ECSPI2_MOSI_ECSPI2_MOSI 0x00000116
+				MX8MM_IOMUXC_ECSPI2_SCLK_ECSPI2_SCLK 0x00001916
+				MX8MM_IOMUXC_ECSPI2_SS0_ECSPI2_SS0 0x00000116
+  			>;
+		};
 
 		pinctrl_i2c1: i2c1grp {
 			fsl,pins = <
@@ -893,3 +939,31 @@
 &cpu_crit0 {
 	temperature = <115000>;
 };
+
+&ecspi1 {
+ 	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_ecspi1>;
+    cs-gpios = <&gpio5 9 0>;
+    fsl,spi-num-chipselects = <1>;
+	status = "okay";
+
+        spi@0 {
+               compatible = "spidev", "rohm,dh2228fv";
+               spi-max-frequency = <12000000>;
+               reg = <0>;
+        };
+};
+
+
+/*&ecspi2 {
+    pinctrl-names = "default";
+    pinctrl-0 = ;
+    fsl,spi-num-chipselects = <1>;
+    cs-gpios = ;
+    status = "okay";
+    spi@0 {
+        compatible = "spidev", "rohm,dh2228fv";
+        reg = <0>;
+        spi-max-frequency = <54000000>;
+    };
+}; */
