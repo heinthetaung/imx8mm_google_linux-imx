@@ -622,6 +622,14 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c3>;
 	status = "okay";
+
+	battery@b {
+		compatible = "sbs,sbs-battery";
+		reg = < 0xb >;
+		sbs,i2c-retry-count = <2>;
+		sbs,poll-retry-count = <10>;
+		sbs,force-load;
+	};
 };
 
 &i2c4 {
