@@ -38,34 +38,6 @@
 		};
 	};
 
-/*	ecspi1: ecspi@30820000 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "fsl,imx8mm-ecspi", "fsl,imx51-ecspi";
-		reg = <0x0 0x30820000 0x0 0x10000>;
-		interrupts = <GIC_SPI 31 IRQ_TYPE_LEVEL_HIGH>;
-		clocks = <&clk IMX8MM_CLK_ECSPI1_ROOT>,
-			<&clk IMX8MM_CLK_ECSPI1_ROOT>;
-		clock-names = "ipg", "per";
-		dmas = <&sdma1 0 7 1>, <&sdma1 1 7 2>;
-		dma-names = "rx", "tx";
-		status = "disabled";
-	};
-
-	ecspi2: ecspi@30830000 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "fsl,imx8mm-ecspi", "fsl,imx51-ecspi";
-		reg = <0x0 0x30830000 0x0 0x10000>;
-		interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-		clocks = <&clk IMX8MM_CLK_ECSPI2_ROOT>,
-			<&clk IMX8MM_CLK_ECSPI2_ROOT>;
-		clock-names = "ipg", "per";
-		dmas = <&sdma1 2 7 1>, <&sdma1 3 7 2>;
-		dma-names = "rx", "tx";
-		status = "disabled";
-	}; */
-
 	//Fake regulator provides WL_REG_ON signal for wireless interface
 	wlreg_on: wlregon-regulator {
 		compatible = "regulator-fixed";
